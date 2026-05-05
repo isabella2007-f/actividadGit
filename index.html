@@ -3,108 +3,149 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Sitio Web</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="src/styles/style.css">
+    <title>Dulce Tentación</title>
 </head>
 <body>
-    <!-- Navegación -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="index.html">
-                <strong>Mi Sitio Web</strong>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="index.html">Inicio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="public/servicios.html">Servicios</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="public/productos.html">Productos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="public/contactos.html">Contactos</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
 
-    <!-- Contenido Principal -->
-    <main>
-        <!-- Hero Section -->
-        <section class="hero-section text-white text-center py-5">
-            <div class="container">
-                <h1 class="display-4 fw-bold mb-4">¡Bienvenido a Mi Sitio Web!</h1>
-                <p class="lead mb-4">Descubre nuestros servicios, productos y mucho más</p>
-                <button class="btn btn-primary btn-lg" onclick="mostrarMensaje()">Contáctanos</button>
-            </div>
-        </section>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:sans-serif;background:#FFF8F8;color:#2C2C2A;}
+.nav{background:#fff;border-bottom:0.5px solid #F7C1C1;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:56px;position:sticky;top:0;z-index:10;}
+.nav-brand{font-size:16px;font-weight:600;color:#A32D2D;display:flex;align-items:center;gap:8px;}
+.nav-links{display:flex;gap:1.5rem;}
+.nav-links a{font-size:14px;color:#5F5E5A;text-decoration:none;transition:color 0.2s;}
+.nav-links a:hover{color:#A32D2D;}
+.hero{background:linear-gradient(135deg,#FCEBEB 0%,#FAEEDA 50%,#FBEAF0 100%);padding:4rem 2rem 3rem;text-align:center;border-bottom:0.5px solid #F7C1C1;}
+.hero h1{font-size:32px;font-weight:600;color:#501313;margin-bottom:0.75rem;}
+.hero p{font-size:16px;color:#791F1F;line-height:1.7;max-width:480px;margin:0 auto 1.5rem;}
+.hero-btn{background:#A32D2D;color:#FCEBEB;border:none;padding:10px 28px;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;transition:background 0.2s;}
+.hero-btn:hover{background:#791F1F;}
+.section{padding:2.5rem 2rem;}
+.section-title{font-size:20px;font-weight:500;color:#2C2C2A;margin-bottom:1.5rem;text-align:center;}
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;max-width:700px;margin:0 auto;}
+.card{background:#fff;border:0.5px solid #F0997B;border-radius:12px;overflow:hidden;}
+.card-emoji{font-size:40px;display:block;padding:1.5rem 1rem 0.5rem;text-align:center;}
+.card-body{padding:0.75rem 1rem 1.25rem;}
+.card-title{font-size:15px;font-weight:500;margin-bottom:4px;text-align:center;color:#2C2C2A;}
+.card-desc{font-size:13px;color:#5F5E5A;line-height:1.6;text-align:center;}
+.card-price{font-size:14px;font-weight:600;color:#A32D2D;text-align:center;margin-top:8px;}
+.valores-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;max-width:700px;margin:0 auto;}
+.valor-card{background:#FFF8F8;border-radius:8px;padding:1.25rem 1rem;text-align:center;border:0.5px solid #F7C1C1;}
+.valor-icon{width:36px;height:36px;border-radius:50%;background:#FCEBEB;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;font-size:18px;}
+.valor-title{font-size:13px;font-weight:500;color:#2C2C2A;margin-bottom:4px;}
+.valor-text{font-size:12px;color:#5F5E5A;line-height:1.6;}
+.cta{background:#FCEBEB;padding:2.5rem 2rem;text-align:center;border-top:0.5px solid #F7C1C1;}
+.cta h2{font-size:20px;font-weight:500;color:#501313;margin-bottom:0.5rem;}
+.cta p{font-size:14px;color:#791F1F;margin-bottom:1.25rem;line-height:1.7;}
+.cta-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+.btn-outline{padding:9px 22px;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;border:1px solid #A32D2D;background:transparent;color:#A32D2D;transition:all 0.2s;}
+.btn-outline:hover{background:#A32D2D;color:#FCEBEB;}
+.btn-fill{padding:9px 22px;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;border:1px solid #BA7517;background:transparent;color:#BA7517;transition:all 0.2s;}
+.btn-fill:hover{background:#BA7517;color:#FAEEDA;}
+.footer{background:#fff;border-top:0.5px solid #F7C1C1;padding:1.5rem 2rem;text-align:center;}
+.footer p{font-size:13px;color:#5F5E5A;}
+.badge{display:inline-block;background:#FAEEDA;color:#633806;font-size:11px;font-weight:500;padding:2px 10px;border-radius:8px;margin-bottom:6px;}
+</style>
 
-        <!-- Sección de Características -->
-        <section class="features py-5">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-4 mb-4">
-                        <div class="card h-100 shadow-sm">
-                            <div class="card-body text-center">
-                                <h5 class="card-title">🎯 Misión</h5>
-                                <p class="card-text">Proporcionar soluciones de calidad que superen las expectativas de nuestros clientes.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 mb-4">
-                        <div class="card h-100 shadow-sm">
-                            <div class="card-body text-center">
-                                <h5 class="card-title">👁️ Visión</h5>
-                                <p class="card-text">Ser líderes en innovación y excelencia en la industria.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 mb-4">
-                        <div class="card h-100 shadow-sm">
-                            <div class="card-body text-center">
-                                <h5 class="card-title">⭐ Valores</h5>
-                                <p class="card-text">Integridad, compromiso y dedicación en todo lo que hacemos.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+<nav class="nav">
+  <span class="nav-brand">🍮 Dulce Tentación</span>
+  <div class="nav-links">
+    <a href="index.html">Inicio</a>
+    <a href="public/servicios.html">Servicios</a>
+    <a href="public/productos.html">Menú</a>
+    <a href="public/contactos.html">Contacto</a>
+  </div>
+</nav>
 
-        <!-- Sección Call to Action -->
-        <section class="cta-section bg-light py-5">
-            <div class="container text-center">
-                <h2 class="mb-4">¿Listo para comenzar?</h2>
-                <p class="mb-4 lead">Explora nuestros servicios y productos disponibles</p>
-                <div class="btn-group" role="group">
-                    <a href="public/servicios.html" class="btn btn-outline-primary btn-lg">Ver Servicios</a>
-                    <a href="public/productos.html" class="btn btn-outline-success btn-lg">Ver Productos</a>
-                </div>
-            </div>
-        </section>
-    </main>
+<section class="hero">
+  <h1>Postres que enamoran</h1>
+  <p>Elaborados con amor, ingredientes frescos y la receta perfecta para endulzar tu día</p>
+  <button class="hero-btn" onclick="mostrarMensaje()">Ver el menú completo</button>
+</section>
 
-    <!-- Footer -->
-    <footer class="bg-dark text-white text-center py-4 mt-5">
-        <div class="container">
-            <p class="mb-0">&copy; 2026 Mi Sitio Web. Todos los derechos reservados.</p>
-            <small>Desarrollado con HTML, CSS, JavaScript y Bootstrap</small>
-        </div>
-    </footer>
+<section class="section" style="background:#fff;">
+  <p class="section-title">Nuestros favoritos</p>
+  <div class="cards-grid">
+    <div class="card">
+      <span class="card-emoji">🍰</span>
+      <div class="card-body">
+        <span class="badge">Más pedido</span>
+        <p class="card-title">Cheesecake de fresa</p>
+        <p class="card-desc">Base de galleta, crema suave y coulis de fresas frescas</p>
+        <p class="card-price">$12.000</p>
+      </div>
+    </div>
+    <div class="card">
+      <span class="card-emoji">🍫</span>
+      <div class="card-body">
+        <p class="card-title">Brownie fondant</p>
+        <p class="card-desc">Chocolate 70% con centro derretido y helado de vainilla</p>
+        <p class="card-price">$9.500</p>
+      </div>
+    </div>
+    <div class="card">
+      <span class="card-emoji">🥐</span>
+      <div class="card-body">
+        <p class="card-title">Croissant de almendra</p>
+        <p class="card-desc">Hojaldre crujiente, crema de almendras y azúcar perlado</p>
+        <p class="card-price">$7.000</p>
+      </div>
+    </div>
+    <div class="card">
+      <span class="card-emoji">🍮</span>
+      <div class="card-body">
+        <span class="badge">Artesanal</span>
+        <p class="card-title">Crème brûlée</p>
+        <p class="card-desc">Crema francesa con caramelo crocante y vainilla de Madagascar</p>
+        <p class="card-price">$11.000</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Custom JS -->
-    <script src="src/scripts/script.js"></script>
+<section class="section">
+  <p class="section-title">Por qué elegirnos</p>
+  <div class="valores-row">
+    <div class="valor-card">
+      <div class="valor-icon">🌿</div>
+      <p class="valor-title">Ingredientes frescos</p>
+      <p class="valor-text">Seleccionamos los mejores insumos del mercado cada día</p>
+    </div>
+    <div class="valor-card">
+      <div class="valor-icon">👩‍🍳</div>
+      <p class="valor-title">Chefs pasteleros</p>
+      <p class="valor-text">Con formación internacional y pasión por la repostería fina</p>
+    </div>
+    <div class="valor-card">
+      <div class="valor-icon">🎁</div>
+      <p class="valor-title">Pedidos especiales</p>
+      <p class="valor-text">Tortas personalizadas para bodas, cumpleaños y eventos</p>
+    </div>
+    <div class="valor-card">
+      <div class="valor-icon">🚴</div>
+      <p class="valor-title">Domicilio gratis</p>
+      <p class="valor-text">Entregamos en toda la ciudad sin costo adicional</p>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <h2>¿Antojo de algo dulce?</h2>
+  <p>Haz tu pedido hoy y recíbelo en menos de 45 minutos</p>
+  <div class="cta-btns">
+    <a href="public/productos.html" class="btn-outline">Ver menú completo</a>
+    <a href="public/contactos.html" class="btn-fill">Pedido especial</a>
+  </div>
+</section>
+
+<footer class="footer">
+  <p>© 2026 Dulce Tentación · Elaborado con amor y mucho azúcar</p>
+</footer>
+
+<!-- Bootstrap JS (opcional) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Tu script personalizado -->
+<script src="src/scripts/script.js"></script>
+
 </body>
 </html>
