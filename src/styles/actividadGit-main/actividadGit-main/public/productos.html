@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú — Dulce Tentación</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --cream:    #FFF8F0;
+            --blush:    #FCEBEB;
+            --rose:     #F7C1C1;
+            --ruby:     #A32D2D;
+            --deep:     #501313;
+            --caramel:  #BA7517;
+            --sand:     #FAEEDA;
+            --bark:     #633806;
+            --muted:    #5F5E5A;
+            --ink:      #2C2C2A;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--cream);
+            color: var(--ink);
+        }
+
+        /* ── NAV ── */
+        .nav {
+            background: #fff;
+            border-bottom: 0.5px solid var(--rose);
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 56px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .nav-brand {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--ruby);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+        .nav-links { display: flex; gap: 1.5rem; }
+        .nav-links a {
+            font-size: 14px;
+            color: var(--muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover, .nav-links a.active { color: var(--ruby); }
+
+        /* ── HERO ── */
+        .page-hero {
+            background: linear-gradient(135deg, #FCEBEB 0%, #FAEEDA 55%, #FBEAF0 100%);
+            padding: 3.5rem 2rem 2.5rem;
+            text-align: center;
+            border-bottom: 0.5px solid var(--rose);
+            position: relative;
+            overflow: hidden;
+        }
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 70% 40%, rgba(186,117,23,0.08) 0%, transparent 60%),
+                        radial-gradient(ellipse at 20% 70%, rgba(163,45,45,0.06) 0%, transparent 50%);
+        }
+        .page-hero .badge-pill {
+            display: inline-block;
+            background: var(--sand);
+            color: var(--bark);
+            font-size: 12px;
+            font-weight: 500;
+            padding: 4px 14px;
+            border-radius: 20px;
+            margin-bottom: 1rem;
+            letter-spacing: .04em;
+        }
+        .page-hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(28px, 5vw, 42px);
+            font-weight: 600;
+            color: var(--deep);
+            margin-bottom: 0.6rem;
+        }
+        .page-hero p {
+            font-size: 15px;
+            color: #791F1F;
+            line-height: 1.7;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        /* ── FILTER TABS ── */
+        .filter-bar {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding: 1.75rem 1rem 0.5rem;
+        }
+        .filter-btn {
+            background: #fff;
+            border: 0.5px solid var(--rose);
+            color: var(--muted);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+            padding: 6px 18px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--ruby);
+            border-color: var(--ruby);
+            color: #fff;
+        }
+
+        /* ── SECTION TITLE ── */
+        .section-label {
+            text-align: center;
+            padding: 2.5rem 1rem 1.25rem;
+        }
+        .section-label h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--deep);
+        }
+        .section-label p {
+            font-size: 13px;
+            color: var(--muted);
+            margin-top: 4px;
+        }
+
+        /* ── PRODUCT GRID ── */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 16px;
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 1.5rem 3rem;
+        }
+
+        /* ── PRODUCT CARD ── */
+        .prod-card {
+            background: #fff;
+            border: 0.5px solid #F0D0C8;
+            border-radius: 16px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.22s, box-shadow 0.22s;
+            position: relative;
+        }
+        .prod-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(163,45,45,0.10);
+        }
+
+        .card-tag {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: var(--sand);
+            color: var(--bark);
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: .05em;
+            text-transform: uppercase;
+            padding: 3px 10px;
+            border-radius: 6px;
+            z-index: 2;
+        }
+        .card-tag.new  { background: #EDFAF0; color: #1A6335; }
+        .card-tag.hot  { background: #FEEDE8; color: #B03A00; }
+
+        .card-emoji-wrap {
+            background: linear-gradient(135deg, var(--blush) 0%, var(--sand) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 120px;
+            font-size: 52px;
+            line-height: 1;
+            flex-shrink: 0;
+        }
+
+        .card-body {
+            padding: 1rem 1rem 1.25rem;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+        .card-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--ink);
+            margin-bottom: 5px;
+        }
+        .card-desc {
+            font-size: 12.5px;
+            color: var(--muted);
+            line-height: 1.6;
+            flex: 1;
+        }
+        .card-footer-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 14px;
+        }
+        .card-price {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--ruby);
+        }
+        .add-btn {
+            background: var(--ruby);
+            color: #fff;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            font-size: 18px;
+            line-height: 1;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s, transform 0.15s;
+            flex-shrink: 0;
+        }
+        .add-btn:hover { background: var(--deep); transform: scale(1.08); }
+
+        /* ── SPECIAL ORDERS BANNER ── */
+        .special-banner {
+            background: linear-gradient(120deg, #501313 0%, #A32D2D 100%);
+            color: #fff;
+            border-radius: 16px;
+            padding: 2rem 1.75rem;
+            max-width: 960px;
+            margin: 0 auto 3rem;
+            padding-left: 2rem;
+            padding-right: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .special-banner .text h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+        .special-banner .text p {
+            font-size: 13.5px;
+            opacity: 0.85;
+            line-height: 1.6;
+            max-width: 360px;
+        }
+        .banner-btn {
+            background: var(--sand);
+            color: var(--bark);
+            border: none;
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: background 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .banner-btn:hover { background: #fff; color: var(--bark); }
+
+        /* ── DIVIDER ── */
+        .divider {
+            width: 40px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--rose), var(--caramel));
+            border-radius: 2px;
+            margin: 8px auto 0;
+        }
+
+        /* ── FOOTER ── */
+        .footer {
+            background: #fff;
+            border-top: 0.5px solid var(--rose);
+            padding: 1.5rem 2rem;
+            text-align: center;
+        }
+        .footer p { font-size: 13px; color: var(--muted); }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 520px) {
+            .nav-links { gap: 1rem; }
+            .nav-links a { font-size: 13px; }
+            .products-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 0 1rem 2.5rem; }
+            .card-emoji-wrap { height: 96px; font-size: 42px; }
+            .special-banner { padding: 1.5rem 1.25rem; text-align: center; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="page-hero">
+    <div class="badge-pill">✨ Recién horneado cada día</div>
+    <h1>Nuestro Menú</h1>
+    <p>Cada postre, una historia de sabor. Elaborados con amor y los mejores ingredientes.</p>
+</div>
+
+<!-- FILTER TABS -->
+<div class="filter-bar">
+    <button class="filter-btn active">🍽️ Todo</button>
+    <button class="filter-btn">🍰 Tortas</button>
+    <button class="filter-btn">🍫 Chocolate</button>
+    <button class="filter-btn">🥐 Panadería</button>
+    <button class="filter-btn">🍮 Clásicos</button>
+    <button class="filter-btn">🍦 Helados</button>
+</div>
+
+<!-- DESTACADOS -->
+<div class="section-label">
+    <h2>Más pedidos</h2>
+    <p>Los favoritos de nuestros clientes</p>
+    <div class="divider"></div>
+</div>
+
+<div class="products-grid">
+
+    <div class="prod-card">
+        <span class="card-tag hot">🔥 Más pedido</span>
+        <div class="card-emoji-wrap">🍰</div>
+        <div class="card-body">
+            <p class="card-name">Cheesecake de Fresa</p>
+            <p class="card-desc">Base de galleta, crema suave y coulis de fresas frescas del campo</p>
+            <div class="card-footer-row">
+                <span class="card-price">$12.000</span>
+                <button class="add-btn" title="Agregar al pedido">+</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="prod-card">
+        <span class="card-tag">⭐ Artesanal</span>
+        <div class="card-emoji-wrap">🍮</div>
+        <div class="card-body">
+            <p class="card-name">Crème Brûlée</p>
+            <p class="card-desc">Crema francesa con caramelo crocante y vainilla de Madagascar</p>
+            <div class="card-footer-row">
+                <span class="card-price">$11.000</span>
+                <button class="add-btn" title="Agregar al pedido">+</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="prod-card">
+        <div class="card-emoji-wrap">🍫</div>
+        <div class="card-body">
+            <p class="card-name">Brownie Fondant</p>
+            <p class="card-desc">Chocolate 70% con centro derretido y helado de vainilla artesanal</p>
+            <div class="card-footer-row">
+                <span class="card-price">$9.500</span>
+                <button class="add-btn" title="Agregar al pedido">+</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="prod-card">
+        <div class="card-emoji-wrap">🥐</div>
+        <div class="card-body">
+            <p class="card-name">Croissant de Almendra</p>
+            <p class="card-desc">Hojaldre crujiente, crema de almendras y azúcar perlado importado</p>
+            <div class="card-footer-row">
+                <span class="card-price">$7.000</span>
+                <button class="add-btn" title="Agregar al pedido">+</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- TORTAS -->
+<div class="section-label">
+    <h2>Tortas & Pasteles</h2>
+    <p>Para cada ocasión especial</p>
+    <div class="divider"></div>
+</div>
+
+<div class="products-grid">
+
+    <div class="prod-card">
+        <span class="card-tag new">✨ Nuevo</span>
+        <div class="card-emoji-wrap">🎂</div>
+        <div class="card-body">
+            <p class="card-name">Torta Red Velvet</p>
+            <p class="card-desc">Capas de terciopelo rojo con frosting de queso crema y frutos rojos</p>
+            <div class="card-footer-row">
+                <span class="card-price">$38.000</span>
+                <button class="add-btn">+</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="prod-card">
+        <div class="card-emoji-wrap">🍰</div>
+        <div class="card-body">
+            <p class="card-name">Tiramisú Clásico</p>
+            <p class="card-desc">Bizcochos con espresso, mascarpone y cacao en polvo de Perú</p>
+            <div class="card-footer-row">
+                <span class="card-price">$14.500</span>
+                <button class="add-btn">+</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="prod-card">
+        <div class="card-emoji-wrap">🫐</div>
+        <div class="card-body">
+            <p class="card-name">Tarta de Arándanos</p>
+            <p class="card-desc">Masa quebrada con crema pastelera y arándanos frescos glaseados</p>
+            <div class="card-footer-row">
+                <span class="card-price">$16.000</span>
+                <button class="add-btn">+</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="prod-card">
+        <div class="card-emoji-wrap">🍋</div>
+        <div class="card-body">
+            <p class="card-name">Tarta de Limón</p>
+            <p class="card-desc">Crema de limón meyer sobre masa sablée con merengue italiano tostado</p>
+            <div class="card-footer-row">
+                <span class="card-price">$13.000</span>
+                <button class="add-btn">+</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="prod-card">
+        <span class="card-tag hot">❤️ Especial</span>
+        <div class="card-emoji-wrap">🍓</div>
+        <div class="card-body">
+            <p class="card-name">Fraisier Francés</p>
+            <p class="card-desc">Bizcocho genovés, crema mousseline de vainilla y fresas naturales</p>
+            <div class="card-footer-row">
+                <span class="card-price">$18.000</span>
+                <button class="add-btn">+</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="prod-card">
+        <div class="card-emoji-wrap">🥭</div>
+        <div class="card-body">
+            <p class="card-name">Mousse de Mango</p>
+            <p class="card-desc">Mousse ligero de mango Tommy con coulis tropical y coco rallado</p>
+            <div class="card-footer-row">
+                <span class="card-price">$11.500</span>
+                <button class="add-btn">+</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- PANADERÍA & PETIT FOURS -->
+<div class="section-label">
+    <h2>Panadería & Petit Fours</h2>
+    <p>Pequeños bocados, gran sabor</p>
+    <div class="divider"></div>
+</div>
+
+<div class="products-grid">
+
+    <div class="prod-card">
+        <div class="card-emoji-wrap">🧁</div>
+        <div class="card-body">
+            <p class="card-name">Cupcake de Nutella</p>
+            <p class="card-desc">Bizcocho esponjoso, relleno de Nutella y buttercream de avellana</p>
+            <div class="card-footer-row">
+                <span class="card-price">$5.500</span>
+                <button class="add-btn">+</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="prod-card">
+        <span class="card-tag new">✨ Nuevo</span>
+        <div class="card-emoji-wrap">🍪</div>
+        <div class="card-body">
+            <p class="card-name">Cookie de Chispas</p>
+            <p class="card-desc">Galleta americana XXL con triple chocolate y sal marina en escamas</p>
+            <div class="card-footer-row">
+                <span class="card-price">$4.500</span>
+                <button class="add-btn">+</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="prod-card">
+        <div class="card-emoji-wrap">🥐</div>
+        <div class="card-body">
+            <p class="card-name">Pain au Chocolat</p>
+            <p class="card-desc">Hojaldre artesanal con doble barra de chocolate belga oscuro</p>
+            <div class="card-footer-row">
+                <span class="card-price">$6.000</span>
+                <button class="add-btn">+</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="prod-card">
+        <div class="card-emoji-wrap">🍩</div>
+        <div class="card-body">
+            <p class="card-name">Donut Glaseado</p>
+            <p class="card-desc">Masa esponjosa frita con glaseado de fresa, chocolate o vainilla</p>
+            <div class="card-footer-row">
+                <span class="card-price">$4.000</span>
+                <button class="add-btn">+</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- BEBIDAS -->
+<div class="section-label">
+    <h2>Bebidas & Acompañamientos</h2>
+    <p>El complemento perfecto</p>
+    <div class="divider"></div>
+</div>
+
+<div class="products-grid">
+
+    <div class="prod-card">
+        <div class="card-emoji-wrap">☕</div>
+        <div class="card-body">
+            <p class="card-name">Café Latte</p>
+            <p class="card-desc">Espresso de origen con leche vaporizada y arte latte especial</p>
+            <div class="card-footer-row">
+                <span class="card-price">$6.500</span>
+                <button class="add-btn">+</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="prod-card">
+        <div class="card-emoji-wrap">🍵</div>
+        <div class="card-body">
+            <p class="card-name">Té Matcha Latte</p>
+            <p class="card-desc">Matcha ceremonial japonés con leche de avena y miel artesanal</p>
+            <div class="card-footer-row">
+                <span class="card-price">$7.500</span>
+                <button class="add-btn">+</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="prod-card">
+        <span class="card-tag hot">🔥 Trending</span>
+        <div class="card-emoji-wrap">🍫</div>
+        <div class="card-body">
+            <p class="card-name">Chocolate Caliente</p>
+            <p class="card-desc">Chocolate de mesa con leche entera y nata montada casera</p>
+            <div class="card-footer-row">
+                <span class="card-price">$5.000</span>
+                <button class="add-btn">+</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="prod-card">
+        <div class="card-emoji-wrap">🍦</div>
+        <div class="card-body">
+            <p class="card-name">Milkshake Artesanal</p>
+            <p class="card-desc">Helado cremoso batido en tres sabores: fresa, vainilla o chocolate</p>
+            <div class="card-footer-row">
+                <span class="card-price">$9.000</span>
+                <button class="add-btn">+</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- SPECIAL ORDERS BANNER -->
+<div style="padding: 0 1.5rem;">
+    <div class="special-banner">
+        <div class="text">
+            <h3>🎂 ¿Buscas algo especial?</h3>
+            <p>Creamos tortas personalizadas para bodas, cumpleaños y cualquier evento. Cuéntanos tu idea y lo hacemos realidad.</p>
+        </div>
+        <a href="contactos.html" class="banner-btn">Pedir personalizado →</a>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer" style="margin-top: 3rem;">
+    <p>© 2026 Dulce Tentación · Elaborado con amor y mucho azúcar 🍮</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../src/scripts/script.js"></script>
+<script>
+    // Filter buttons (visual only — extend for real filtering)
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+        });
+    });
+
+    // Add to order button feedback
+    document.querySelectorAll('.add-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            this.textContent = '✓';
+            this.style.background = '#1A6335';
+            setTimeout(() => {
+                this.textContent = '+';
+                this.style.background = '';
+            }, 1200);
+        });
+    });
+</script>
+</body>
+</html>
